@@ -1,0 +1,5 @@
+{
+  "name": "MolStringRenderer",
+  "description": "A minimalist, professional tool to visualize chemical structures from InChI or SMILES strings. Features automatic format detection, high-quality image rendering, and AI-powered molecular insights.",
+  "requestFramePermissions": []
+}
