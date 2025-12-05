@@ -7,13 +7,9 @@ import { Hexagon } from 'lucide-react';
 const App: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [submittedValue, setSubmittedValue] = useState('');
-  const [format, setFormat] = useState<'InChI' | 'SMILES' | 'Unknown'>('Unknown');
-
+  
   const handleDraw = () => {
     if (!inputValue.trim()) return;
-    
-    const detected = detectFormat(inputValue);
-    setFormat(detected);
     setSubmittedValue(inputValue);
   };
 
@@ -24,7 +20,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-20 px-4 sm:px-6 lg:px-8 selection:bg-slate-200">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-20 px-4 sm:px-6 lg:px-8 selection:bg-indigo-100 selection:text-indigo-900">
       
       {/* Header */}
       <div className="text-center mb-12 space-y-4">
@@ -40,8 +36,10 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Interaction Area */}
-      <div className="w-full max-w-lg">
-        <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex flex-col gap-2">
+      <div className="w-full max-w-lg space-y-8">
+        
+        {/* Input Section */}
+        <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex flex-col gap-2 relative z-10">
            <div className="relative">
              <label htmlFor="mol-input" className="sr-only">InChI / SMILES</label>
              <input
@@ -70,25 +68,25 @@ const App: React.FC = () => {
            
            <button
              onClick={handleDraw}
-             className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-xl transition-colors duration-200 shadow-sm active:scale-[0.99]"
+             className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-xl transition-colors duration-200 shadow-sm active:scale-[0.99] active:shadow-none"
            >
              Draw Structure
            </button>
         </div>
 
-        {/* Dynamic Content */}
+        {/* Unified Display Card */}
         {submittedValue && (
-            <>
+            <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <MoleculeViewer input={submittedValue} />
                 <MoleculeInsights input={submittedValue} />
-            </>
+            </div>
         )}
       </div>
 
       {/* Footer */}
       <footer className="mt-auto pt-20 text-center">
         <p className="text-xs text-slate-300">
-          Powered by NIH Resolver & Gemini API
+          Powered by SmilesDrawer & Gemini API
         </p>
       </footer>
     </div>
